@@ -1,0 +1,29 @@
+{
+	"name": "duct-tape",
+	"version": "0.0.0",
+	"description": "Duct-tape is an testing library based on Tape that neatly handles Promises and Errors.",
+	"main": "duct-tape.js",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/j50n/duct-tape.git"
+	},
+	"keywords": [
+		"tape",
+		"test",
+		"promise",
+		"error"
+	],
+	"author": "Jason Smith",
+	"license": "MIT",
+	"bugs": {
+		"url": "https://github.com/j50n/duct-tape/issues"
+	},
+	"homepage": "https://github.com/j50n/duct-tape#readme",
+	"dependencies": {
+		"tape": "~4.2",
+		"tape-catch": "~1.0"
+	}
+}
