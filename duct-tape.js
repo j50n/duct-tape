@@ -3,31 +3,38 @@
 
 	const tape = require( "tape-catch" );
 
-	module.exports = function test() {
-		let f;
+	function isPromise( p ) {
+		return p && p.then && typeof p.then === "function";
+	}
+
+	function test() {
 		let params = [];
-		for ( let loop = 0; loop < arguments.length; loop++ ) {
-			if ( typeof arguments[ loop ] === "function" ) {
-				f = arguments[ loop ];
+		Array.prototype.slice.call( arguments ).forEach( function ( arg ) {
+			if ( typeof arg === "function" ) {
+				const testFunction = arg;
+				params.push(
+					function ductTapeTestWrapper( t ) {
+						const p = testFunction( t );
+						if ( isPromise( p ) ) {
+							p.then( function resolve() {
+								t.end();
+							}, function reject( err ) {
+								t.end( err );
+							} );
+						}
+					} );
 			}
 			else {
-				params.push( arguments[ loop ] );
-			}
-		}
-		params.push( function ( t ) {
-			const p = f( t );
-			if ( p && p.then ) {
-				p.then( function () {
-					t.end();
-				}, function ( err ) {
-					t.end( err );
-				} );
+				params.push( arg );
 			}
 		} );
-		tape.apply( tape, params );
-	};
 
-	module.exports.skip = function () {
+		tape.apply( tape, params );
+	}
+
+	test.skip = function skip() {
 		tape.skip.apply( tape, arguments );
 	};
+
+	module.exports = test;
 } )();

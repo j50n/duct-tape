@@ -1,6 +1,6 @@
 {
 	"name": "duct-tape",
-	"version": "0.0.0",
+	"version": "0.0.1",
 	"description": "Duct-tape is an testing library based on Tape that neatly handles Promises and Errors.",
 	"main": "duct-tape.js",
 	"scripts": {
